@@ -23,16 +23,25 @@ SCC = readRDS("Source_Classification_Code.rds")
 unlink("Source_Classification_Code.rds")
 unlink("summarySCC_PM25.rds")
 
-
+# aggregate emissions per year
 total_per_year = NEI %>% group_by(year) %>% summarize(Emissions = sum(Emissions))
-par(xaxs = "i")
-with(total_per_year,plot(year, Emissions/1e6,
-                         xlim = c(1999,2008),
-                         type = "b",
-                         main = expression(paste("USA total emission of ",PM[2.5],
-                                                 " was decreased during 1999-2008")),
-                         xlab = "Year",
-                         ylab = expression(paste(PM[2.5], ", million tons"))))
 
-title(sub= "Pollution siginificantly decrease.")
+# plot
+png(filename="plot1.png", width = 480, height = 480)
+par(las=1) # place labels on Y vertically
+with(total_per_year,{
+    plot(year, Emissions/1e6,
+         xlim = c(1999,2008),
+         type = "b",
+         main = expression(paste("USA total emission of ",PM[2.5],
+                                 " decreased during 1999-2008")),
+         xaxt = "n",
+         xlab = "Year",
+         ylab = expression(paste(PM[2.5], ", millions tons")))
+    axis(1, at=unique(year), labels=unique(year)) # Places x-labels in correct places
+})
+
+dev.off()
+
+
 
