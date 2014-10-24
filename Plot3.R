@@ -41,7 +41,7 @@ qplot(year,Emissions,
       xlab = "Year",
       ylab = expression(paste(PM[2.5], ", thousands tons")),
       main = expression(paste("Baltimore emission of ",PM[2.5],
-                              " increased in POINT source during 1999-2008"))) + 
+                              " didn't decrease in POINT source during 1999-2008"))) + 
     theme_bw()
 
 dev.off()
